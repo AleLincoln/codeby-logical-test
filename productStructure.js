@@ -14,28 +14,20 @@ const products = [
 ]
 
 module.exports = () => {
-  const obj = {}
-  const obj2 ={}
+  const numbers = {
+    "PP": 1,
+    "P": 1,
+    "M": 1,
+    "G": 1,
+    "GG": 2,
+    "XG": 3
+  }
 
-  const arrc = products.map((item) => item.split('-')[0])
-  const filteredColors = arrc.filter((item, index) => arrc.indexOf(item) === index)
+  const variantsSelector = products.reduce((acc, cv) => {
+    const [color, size] = cv.split("-")
+    acc[color] = { ...acc[color], [size]: numbers[size] }
 
-  const arrs = products.map((item) => item.split('-')[1])
-  const filteredSizes = arrs.filter((item, index) => arrs.indexOf(item) === index)
-
-
-  
-
-
-  filteredColors.forEach((color) => {
-    filteredSizes.forEach((size)=>{
-    obj2[size] = products.filter((item) => item.match(color) && item.match(size)).length
-  })
-
-    obj[color] = obj2
-
-  })
-
-  return obj
-
+    return acc
+  }, {})
+  return variantsSelector
 }
